@@ -1,0 +1,44 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: kubemq-grpc
+
+spec:
+  entryPoints:
+    - kubemq-grpc
+  routes:
+  - match: HostSNI(`*`)
+    services:
+    - name: kubemq
+      port: 50000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: kubemq-rest
+
+spec:
+  entryPoints:
+    - kubemq-rest
+  routes:
+  - match: HostSNI(`*`)
+    services:
+    - name: kubemq
+      port: 9090
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: kubemq-api
+
+spec:
+  entryPoints:
+    - kubemq-api
+  routes:
+  - match: HostSNI(`*`)
+    services:
+    - name: kubemq
+      port: 8080
+
+

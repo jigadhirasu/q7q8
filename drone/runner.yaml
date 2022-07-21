@@ -1,0 +1,18 @@
+rbac:
+  buildNamespaces:
+    - drone
+
+env:
+  DRONE_RPC_SECRET: ba410110b965385435304784ad41e3fe
+  DRONE_RPC_HOST: drone.asgame.xyz
+  DRONE_RPC_PROTO: https
+  DRONE_NAMESPACE_DEFAULT: drone
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+

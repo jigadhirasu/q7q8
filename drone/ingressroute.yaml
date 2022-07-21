@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: drone-proxy
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`drone.asgame.xyz`)
+    kind: Rule
+    services:
+    - name: drone
+      port: 80
+  tls:
+    certResolver: cf
+    domains:
+    - main: drone.asgame.xyz
+
+

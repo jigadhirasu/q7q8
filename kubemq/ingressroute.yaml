@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kubemq-dashboard-proxy
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`kubemq.asgame.xyz`)
+    kind: Rule
+    services:
+    - name: kubemq-dashboard
+      port: 3000
+  tls:
+    certResolver: cf
+    domains:
+    - main: kubemq.asgame.xyz
+

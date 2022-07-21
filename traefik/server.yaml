@@ -1,0 +1,67 @@
+envFrom:
+- secretRef:
+    name: traefik-cf-secret
+
+logs:
+  access:
+    enabled: true
+
+globalArguments :
+- "--entryPoints.websecure.forwardedHeaders.insecure"
+- "--certificatesResolvers.cf.acme.dnsChallenge.provider=cloudflare"
+- "--certificatesResolvers.cf.acme.email=asgameslot@gmail.com"
+- "--certificatesResolvers.cf.acme.storage=/data/cf.acme.json"
+
+- "--certificatesResolvers.tls.acme.tlsChallenge=true"
+- "--certificatesResolvers.tls.acme.email=asgameslot@gmail.com"
+- "--certificatesResolvers.tls.acme.storage=/data/tls.acme.json"
+
+ports:
+  web:
+    nodePort: 32080
+    redirectTo: websecure
+  websecure:
+    nodePort: 32443
+  admin:
+    expose: true
+    port: 32500
+    nodePort: 32500
+  agent:
+    expose: true
+    port: 32510
+    nodePort: 32510
+  kubemq-grpc:
+    expose: true
+    port: 50000
+    nodePort: 30900
+  kubemq-rest:
+    expose: true
+    port: 9090
+    nodePort: 30990
+  kubemq-api:
+    expose: true
+    port: 8080
+    nodePort: 30980
+
+service:
+  enabled: true
+  type: NodePort
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+    cloud.google.com/neg: '{"exposed_ports": {"443":{"name": "neg-traefik-https"}}}'
+
+deployment:
+  enabled: true
+  replicas: 1
+
+persistence:
+  enalbed: false
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi
+

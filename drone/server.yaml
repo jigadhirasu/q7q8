@@ -1,0 +1,18 @@
+env:
+  DRONE_SERVER_HOST: drone.asgame.xyz
+  DRONE_SERVER_PROTO: https
+  DRONE_RPC_SECRET: ba410110b965385435304784ad41e3fe
+  DRONE_DATABASE_DRIVER: mysql
+  DRONE_DATABASE_DATASOURCE: drone:drone@develop@tcp(10.100.5.4:3306)/drone?parseTime=true
+  DRONE_GITHUB_CLIENT_ID: b3d1f839564abb2ab34a
+  DRONE_GITHUB_CLIENT_SECRET: a54aca12fb4cb4e2da8dc6b148ec038d7e2ae31d
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+
